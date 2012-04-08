@@ -19,4 +19,6 @@
 
 -(void) changeWithTileA: (Tile *) a TileB: (Tile *) b sel : (SEL) sel;
 -(void) check: (id) sender data: (id) data;
+-(BOOL) nearTile: (Tile *)aTile anotherTile: (Tile *)otherTile;
+
 @end

@@ -12,14 +12,19 @@
 -(id) initWithSize: (CGSize) aSize factor: (int) aFactor{
 	self = [super init];
 	size = aSize;
-	OutBorderTile = [[Tile alloc] initWithX:-1 Y:-1];
+	//OutBorderTile = [[Tile alloc] initWithX:-1 Y:-1];
+	OutBorderTile = [Tile alloc];
+    [OutBorderTile initWithX:-1 Y:-1];
 	content = [NSMutableArray arrayWithCapacity: size.height];
 	
 	for (int y=0; y<size.height; y++) {
 		
 		NSMutableArray *rowContent = [NSMutableArray arrayWithCapacity:size.width];
 		for (int x=0; x < size.width; x++) {
-			Tile *tile = [[Tile alloc] initWithX:x Y:y];
+			//Tile *tile = [[Tile alloc] initWithX:x Y:y];
+			Tile *tile = [Tile alloc];
+            [tile initWithX:x Y:y];
+            
 			[rowContent addObject:tile];
 			[tile release];
 		}

@@ -61,9 +61,10 @@
 	
 	Tile *tile = [box objectAtX:x Y:y];
     
-    //NSLog(@"vlue of near tile %d",[selectedTile nearTile:tile]);
+    NSLog(@"vlue of near tile %d",[self nearTile:selectedTile anotherTile:tile]);
 	
-	if (selectedTile && [selectedTile nearTile:tile]) {
+	if (selectedTile && [self nearTile:selectedTile anotherTile:tile]) {
+     //   if (selectedTile && [selectedTile nearTile:tile]) {
         //NSLog(@"changeTile");
 
 		[box setLock:YES];
@@ -95,6 +96,15 @@
 	[b.sprite runAction:actionB];
 	
 	[a trade:b];
+}
+
+-(BOOL) nearTile: (Tile *)aTile anotherTile: (Tile *)otherTile {
+    NSLog(@"INPLYATIME y %d othertiley %d  x %d othertilex %d",aTile.y, otherTile.y, aTile.x, otherTile.x);
+    
+	return 
+	(aTile.x == otherTile.x && abs(aTile.y - otherTile.y)==1)
+	||
+	(aTile.y == otherTile.y && abs(aTile.x - otherTile.x)==1);
 }
 
 -(void) backCheck: (id) sender data: (id) data{
