@@ -17,6 +17,9 @@
 
 -(id) init{
 	self = [super init];
+    // Preload effect
+    [MusicHandler preload];
+    
 	score = 0;
     highscore = 0;
     gamePaused = FALSE;
@@ -39,7 +42,7 @@
     scoreLabel.position = ccp(180.0f, 445.0f);
     //scoreLabel.color = ccc3(26, 46, 149);
     scoreLabel.color = ccBLUE;
-    [self addChild:scoreLabel z:10];
+    [self addChild:scoreLabel z:10 tag:99];
     
 	CCSprite *bg = [CCSprite spriteWithFile: @"ingame_menu.png"];
 	bg.position = ccp(160,240);
@@ -51,11 +54,6 @@
 	
 	self.isTouchEnabled = YES;
         
-    // Preload effect
-   // [MusicHandler preload];
-    
-   // [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
-    
     //Pause Toggle can not sure frame cache for sprites!!!!!
     CCMenuItemSprite *playItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"newPauseON.png"]
                                                          selectedSprite:[CCSprite spriteWithFile:@"newPauseONSelect.png"]];
@@ -168,7 +166,7 @@
 }
 
 -(void) onEnterTransitionDidFinish{
-	[box check];
+	[box scored];
 }
 
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{

@@ -19,6 +19,8 @@
 	BOOL lock;
 	CCLayer *layer;
 	Tile *OutBorderTile;
+    
+    int score;
 }
 @property(nonatomic, retain) CCLayer *layer;
 @property(nonatomic, readonly) CGSize size;
