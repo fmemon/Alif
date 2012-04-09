@@ -16,25 +16,12 @@
 	CCSprite *sprite;
 }
 
--(id) initWithX:(int)posX Y: (int) posY;
-//@property (nonatomic) int x, y;
 @property (nonatomic, readonly) int x, y;
-//@property (nonatomic, assign) int x, y;
-
-//@property (nonatomic, assign) int x;
-//@property (nonatomic, assign) int y;
-//@property (nonatomic, readonly) int x, y;
-//@property (nonatomic, readwrite) int y;
-
-//@property (nonatomic, readwrite) int x;
-
-
-//@property (readonly) int x;
-//@property (readonly) int y;
-
 
 @property (nonatomic) int value;
 @property (nonatomic, retain) CCSprite *sprite;
+
+-(id) initWithX:(int)posX Y: (int) posY;
 -(BOOL) nearTile: (Tile *)othertile;
 -(void) trade:(Tile *)otherTile;
 -(CGPoint) pixPosition;

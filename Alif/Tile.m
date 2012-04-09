@@ -13,11 +13,17 @@
 
 
 -(id) initWithX:(int)posX Y: (int) posY{
+    
+    /*
+    if (self = [super init]) {
+        x = posX;
+        y = posY;
+
+    }
+*/
 	self = [super init];
 	x = posX;
 	y = posY;
-    //self.x = posX;
-	//self.y = posY;
 	return self;
 }
 

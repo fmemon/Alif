@@ -16,7 +16,22 @@
 
 -(id) init{
 	self = [super init];
-	
+	score = 0;
+    highscore = 0;
+    
+    //show scores
+    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"HighScore: %i",highscore] fontName:@"Marker Felt" fontSize:24];
+    //highscoreLabel.color = ccc3(26, 46, 149);
+    highscoreLabel.color = ccBLUE;
+    highscoreLabel.position = ccp(180.0f, 465.0f);
+    [self addChild:highscoreLabel z:10];
+    
+    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"       Score: %i",score] fontName:@"Marker Felt" fontSize:24];
+    scoreLabel.position = ccp(180.0f, 445.0f);
+    //scoreLabel.color = ccc3(26, 46, 149);
+    scoreLabel.color = ccBLUE;
+    [self addChild:scoreLabel z:10];
+    
 	CCSprite *bg = [CCSprite spriteWithFile: @"ingame_menu.png"];
 	bg.position = ccp(160,240);
 	[self addChild: bg z:0];
@@ -61,7 +76,7 @@
 	
 	Tile *tile = [box objectAtX:x Y:y];
     
-    NSLog(@"vlue of near tile %d",[self nearTile:selectedTile anotherTile:tile]);
+    //NSLog(@"vlue of near tile %d",[self nearTile:selectedTile anotherTile:tile]);
 	
 	if (selectedTile && [self nearTile:selectedTile anotherTile:tile]) {
      //   if (selectedTile && [selectedTile nearTile:tile]) {
@@ -99,7 +114,7 @@
 }
 
 -(BOOL) nearTile: (Tile *)aTile anotherTile: (Tile *)otherTile {
-    NSLog(@"INPLYATIME y %d othertiley %d  x %d othertilex %d",aTile.y, otherTile.y, aTile.x, otherTile.x);
+    //NSLog(@"INPLYATIME y %d othertiley %d  x %d othertilex %d",aTile.y, otherTile.y, aTile.x, otherTile.x);
     
 	return 
 	(aTile.x == otherTile.x && abs(aTile.y - otherTile.y)==1)

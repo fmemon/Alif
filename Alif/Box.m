@@ -104,6 +104,7 @@
 		}
 	}
     
+    NSLog(@"count of tiles to be removed for scoring %d", [readyToRemoveTiles count]);
 	[readyToRemoveTiles removeAllObjects];
 	int maxCount = [self repair];
 	

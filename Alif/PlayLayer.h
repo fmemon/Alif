@@ -15,6 +15,10 @@
 	Box *box;
 	Tile *selectedTile;
 	Tile *firstOne;
+    int score;
+    int highscore;
+    CCLabelTTF *highscoreLabel;
+    CCLabelTTF *scoreLabel;
 }
 
 -(void) changeWithTileA: (Tile *) a TileB: (Tile *) b sel : (SEL) sel;
