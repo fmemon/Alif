@@ -119,7 +119,7 @@
 
 -(void) removeSprite: (id) sender{
     [MusicHandler playPing];
-    [self callEmitter:sender];
+    [self callEmitter:sender newLevel:NO];
 
 	[layer removeChild: sender cleanup:YES];
     score +=5;
@@ -137,8 +137,26 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:score forKey:@"score"];
     [defaults synchronize];
+    
+    //check if we reached next level 500 score
+    if (score>=300) {
+        NSLog(@"Time to level up");
+        [self callEmitter:nil newLevel:YES];
+        CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
+        [bigLevelLabel setString:[NSString stringWithFormat:@" New Level: %i",2]];
+        [bigLevelLabel setVisible:YES];
+        
+        id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.4f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
+        
+        [bigLevelLabel runAction:[CCSequence actions: action, [CCCallFuncN actionWithTarget:self selector:@selector(dropIt)], nil]];
+    }
 }	 
+-(void)dropIt {
+    CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
+    [bigLevelLabel setVisible:NO];
+    [(CCLabelTTF*)[layer getChildByTag:77] setString:[NSString stringWithFormat:@"Level: %i",2]];
 
+}
 -(void) unlock{
 	self.lock = NO;
 }
@@ -194,7 +212,9 @@
 	return extension;
 }
 
--(void)callEmitter: (id) sender{       
+-(void)callEmitter: (id) sender newLevel:(BOOL)newLevel { 
+    
+    if (!newLevel) {
     int numParticle = 30 +CCRANDOM_0_1()*100;
     myEmitter = [[CCParticleExplosion alloc] initWithTotalParticles:numParticle];
     myEmitter.texture = [[CCTextureCache sharedTextureCache] addImage:@"goldstars1sm.png"];
@@ -208,6 +228,20 @@
     myEmitter.blendAdditive = YES;
     [layer addChild:myEmitter z:11];
     myEmitter.autoRemoveOnFinish = YES;
+    }
+    else {
+        int numParticle = 30 +CCRANDOM_0_1()*1000;
+        myEmitter = [[CCParticleExplosion alloc] initWithTotalParticles:numParticle];
+        myEmitter.texture = [[CCTextureCache sharedTextureCache] addImage:@"goldstars1sm.png"];
+        myEmitter.position = CGPointMake(160.0f, 240.0f);    
+        myEmitter.life =0.4f + CCRANDOM_0_1()*0.4;
+        myEmitter.duration = 0.4f + CCRANDOM_0_1()*0.45;
+        myEmitter.scale = 0.9f;
+        myEmitter.speed = 100.0f + CCRANDOM_0_1()*50.0f;
+        myEmitter.blendAdditive = YES;
+        [layer addChild:myEmitter z:11];
+        myEmitter.autoRemoveOnFinish = YES;
+    }
 }
 
 @end

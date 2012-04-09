@@ -18,6 +18,8 @@
 	Tile *firstOne;
     int score;
     int highscore;
+    CCLabelTTF *bigLevelLabel;
+    CCLabelTTF *levelLabel;
     CCLabelTTF *highscoreLabel;
     CCLabelTTF *scoreLabel;
     CCLabelTTF *pauseLabel;

@@ -34,7 +34,7 @@
 -(void) unlock;
 -(void) removeSprite: (id) sender;
 -(void) afterAllMoveDone;
--(void)callEmitter: (id) sender;
-
+-(void)callEmitter: (id) sender newLevel:(BOOL)newLevel;      
+-(void)dropIt;
 
 @end

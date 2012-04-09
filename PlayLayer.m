@@ -32,10 +32,16 @@
     [pauseLabel setVisible:NO];
     [self addChild:pauseLabel z:0];
     
-    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %i",level] fontName:@"Marker Felt" fontSize:24];
-    highscoreLabel.color = ccYELLOW;
-    highscoreLabel.position = ccp(50.0f, 465.0f);
-    [self addChild:highscoreLabel z:10];
+    bigLevelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"New Level: %i",level] fontName:@"Marker Felt" fontSize:44];
+    bigLevelLabel.color = ccYELLOW;
+    bigLevelLabel.position = ccp(160.0f, 240.0f);
+    [self addChild:bigLevelLabel z:10 tag: 88];
+    [bigLevelLabel setVisible:NO];
+    
+    levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %i",level] fontName:@"Marker Felt" fontSize:24];
+    levelLabel.color = ccYELLOW;
+    levelLabel.position = ccp(50.0f, 465.0f);
+    [self addChild:levelLabel z:10 tag:77];
     
     //show scores
     highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"HighScore: %i",highscore] fontName:@"Marker Felt" fontSize:24];
