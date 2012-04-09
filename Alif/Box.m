@@ -37,8 +37,21 @@
 	
 	readyToRemoveTiles = [NSMutableSet setWithCapacity:5];
 	[readyToRemoveTiles retain];
-    score = 0;
+    score = 0;  
     level = 1;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults integerForKey:@"level"]) {
+        level = [defaults integerForKey:@"level"];
+    }
+    level1 = TRUE;
+    level2 = FALSE;
+    level3 = FALSE;
+    level4 = FALSE;
+    level5 = FALSE;
+    level6 = FALSE;
+    level7 = FALSE;
+    level8 = FALSE;
+    level9 = FALSE;
 	return self;
 }
 
@@ -141,7 +154,6 @@
     //check if we reached next level 500 score
     if (score>=300) {
         level++;
-        NSLog(@"Time to level up");
         [self callEmitter:nil newLevel:YES];
         CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
         [bigLevelLabel setString:[NSString stringWithFormat:@" New Level: %i",level]];
@@ -216,7 +228,13 @@
 	}
 	
 	for (int i=0; i<extension; i++) {
-		int value = (arc4random()%kKindCount+1);
+        
+       // int value = (arc4random()% ((kKindCount+1)*(level*kLevelScoring)));
+        
+		//int value = (arc4random()%kKindCount+1);
+		int value = (arc4random()%kKindCount+1) + kKindCount*(level-1);
+        
+        NSLog(@"Value for level %d value of value %d", level, value);
 		Tile *destTile = [self objectAtX:columnIndex Y:kBoxHeight-extension+i];
 		NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
 		CCSprite *sprite = [CCSprite spriteWithFile:name];

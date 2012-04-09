@@ -24,7 +24,16 @@
     int score;
     int highscore;
     CCParticleExplosion *myEmitter;
-
+    
+    BOOL level1;
+    BOOL level2;
+    BOOL level3;
+    BOOL level4;
+    BOOL level5;
+    BOOL level6;
+    BOOL level7;
+    BOOL level8;
+    BOOL level9;    
 }
 @property(nonatomic, retain) CCLayer *layer;
 @property(nonatomic, readonly) CGSize size;
