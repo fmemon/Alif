@@ -183,6 +183,8 @@
 		654619381532947300920B62 /* goldstars1sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 654619371532947300920B62 /* goldstars1sm.png */; };
 		6546193F1532953800920B62 /* resetS.png in Resources */ = {isa = PBXBuildFile; fileRef = 6546193D1532953800920B62 /* resetS.png */; };
 		654619401532953800920B62 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 6546193E1532953800920B62 /* reset.png */; };
+		6546194F1532A3DA00920B62 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 6546194D1532A3DA00920B62 /* heart.png */; };
+		654619501532A3DA00920B62 /* club.png in Resources */ = {isa = PBXBuildFile; fileRef = 6546194E1532A3DA00920B62 /* club.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -527,6 +529,8 @@
 		654619371532947300920B62 /* goldstars1sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldstars1sm.png; sourceTree = "<group>"; };
 		6546193D1532953800920B62 /* resetS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resetS.png; sourceTree = "<group>"; };
 		6546193E1532953800920B62 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
+		6546194D1532A3DA00920B62 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		6546194E1532A3DA00920B62 /* club.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = club.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -615,6 +619,8 @@
 		65461701153204BA00920B62 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6546194D1532A3DA00920B62 /* heart.png */,
+				6546194E1532A3DA00920B62 /* club.png */,
 				6546193D1532953800920B62 /* resetS.png */,
 				6546193E1532953800920B62 /* reset.png */,
 				654619371532947300920B62 /* goldstars1sm.png */,
@@ -1166,6 +1172,8 @@
 				654619381532947300920B62 /* goldstars1sm.png in Resources */,
 				6546193F1532953800920B62 /* resetS.png in Resources */,
 				654619401532953800920B62 /* reset.png in Resources */,
+				6546194F1532A3DA00920B62 /* heart.png in Resources */,
+				654619501532A3DA00920B62 /* club.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

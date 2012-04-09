@@ -19,6 +19,14 @@
 	self = [super init];
 	score = 0;
     highscore = 0;
+    gamePaused = FALSE;
+    muted = FALSE;
+    
+    
+    pauseLabel = [CCLabelTTF labelWithString:@"Game Paused" fontName:@"Marker Felt" fontSize:32];
+    [pauseLabel setPosition:ccp(160,330)];
+    [pauseLabel setVisible:NO];
+    [self addChild:pauseLabel z:0];
     
     //show scores
     highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"HighScore: %i",highscore] fontName:@"Marker Felt" fontSize:24];
@@ -66,7 +74,10 @@
         pause.position = ccp(screenSize.width*0.03, screenSize.height*0.95f);
     }
     CCMenuItemSprite *pausedPlayItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]
-                                                         selectedSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]];
+                                                         selectedSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]
+                                                               disabledSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]
+                                                                       target:self
+                                                                     selector:@selector(paused)];
     CCMenuItemSprite* restartItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"reset.png"]
                                                             selectedSprite:[CCSprite spriteWithFile:@"resetS.png"]
                                                             disabledSprite:[CCSprite spriteWithFile:@"resetS.png"]
@@ -79,11 +90,49 @@
     [menu alignItemsHorizontallyWithPadding:90.0f];
 
     [self addChild:menu z:11];
+    
 	
 	return self;
 }
+-(void)paused {
+  /*  CGSize winSize = [CCDirector sharedDirector].winSize;
+    
+    [[CCDirector sharedDirector] pause];
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
+    
+    
+    CCLayerColor* pauseLayer = [CCLayerColor layerWithColor: ccc4(0, 0, 255, 150) width: 480 height: 320];
+    [self addChild: pauseLayer z:800];
+    pauseLayer.anchorPoint=ccp(0,0);
+    
+    CCMenuItemImage *resumeButton;*/
+    
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
+    //[self stopGameLoopTimer];
+    //[self stopCollisionTimer];
+    [[CCDirector sharedDirector] pause];
+    CGSize s = [[CCDirector sharedDirector] winSize];
+    pauseLayer = [CCLayerColor layerWithColor: ccc4(0, 0, 255, 125) width: 360 height: 480];
+    pauseLayer.position = ccp(0,0);
+    [self addChild: pauseLayer z:8];
+    CCMenuItem *resume = [CCMenuItemImage itemFromNormalImage:@"heart.png" selectedImage:@"heart.png" target:self selector:@selector(resumeGame)];
+    CCMenuItem *mainMenu = [CCMenuItemImage itemFromNormalImage:@"club.png" selectedImage:@"club.png" target:self selector:@selector(reset)];
+    pauseMenu = [CCMenu menuWithItems:resume, mainMenu, nil];
+    [pauseMenu alignItemsHorizontally];
+    [self addChild:pauseMenu z:10];
+}
+
+-(void)resumeGame{
+    NSLog(@"resumeGame hit");
+    [self removeChild:pauseMenu cleanup:YES];
+    [self removeChild:pauseLayer cleanup:YES];
+    //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"backgroundmusic.mp3"];
+    [[CCDirector sharedDirector] resume];
+}
 
 - (void)reset {
+    NSLog(@"reset Game hit");
+
     CCDirector *director = [CCDirector sharedDirector];
     CCLayer *layer = [PlayLayer node];
 

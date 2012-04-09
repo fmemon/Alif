@@ -20,10 +20,14 @@
     int highscore;
     CCLabelTTF *highscoreLabel;
     CCLabelTTF *scoreLabel;
-    
+    CCLabelTTF *pauseLabel;
     CCMenuItemToggle *pause;
     
     BOOL muted;
+    BOOL gamePaused;
+    
+    CCLayerColor* pauseLayer;
+    CCMenu* pauseMenu;
 }
 
 -(void) changeWithTileA: (Tile *) a TileB: (Tile *) b sel : (SEL) sel;
@@ -34,4 +38,7 @@
 - (void)updateScore;
 - (void)saveData;
 - (void)reset;
+-(void)resumeGame;
+
+
 @end
