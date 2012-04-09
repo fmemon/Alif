@@ -41,8 +41,88 @@
 	box.lock = YES;
 	
 	self.isTouchEnabled = YES;
+    
+    
+    
+    // Preload effect
+   // [MusicHandler preload];
+    
+   // [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+    
+    //Pause Toggle can not sure frame cache for sprites!!!!!
+    CCMenuItemSprite *playItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"newPauseON.png"]
+                                                         selectedSprite:[CCSprite spriteWithFile:@"newPauseONSelect.png"]];
+    
+    CCMenuItemSprite *pauseItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"newPauseOFF.png"]
+                                                          selectedSprite:[CCSprite spriteWithFile:@"newPauseOFFSelect.png"]];
+    CGSize screenSize = [CCDirector sharedDirector].winSize;
+    if (!muted)  {
+        pause = [CCMenuItemToggle itemWithTarget:self selector:@selector(turnOnMusic)items:playItem, pauseItem, nil];
+        pause.position = ccp(screenSize.width*0.03, screenSize.height*0.95f);
+    }
+    else {
+        pause = [CCMenuItemToggle itemWithTarget:self selector:@selector(turnOnMusic)items:pauseItem, playItem, nil];
+        pause.position = ccp(screenSize.width*0.03, screenSize.height*0.95f);
+    }
+    CCMenuItemSprite *pausedPlayItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]
+                                                         selectedSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]];
+    CCMenuItemSprite* restartItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"reset.png"]
+                                                            selectedSprite:[CCSprite spriteWithFile:@"resetS.png"]
+                                                            disabledSprite:[CCSprite spriteWithFile:@"resetS.png"]
+                                                                    target:self
+                                                                  selector:@selector(reset)];	
+    
+    //Create Menu with the items created before
+    CCMenu *menu = [CCMenu menuWithItems:pause,pausedPlayItem,restartItem, nil];
+    menu.position = CGPointMake(150.0f, 15.0f);
+    [menu alignItemsHorizontallyWithPadding:90.0f];
+
+    [self addChild:menu z:11];
 	
 	return self;
+}
+
+- (void)reset {
+ 
+}
+- (void)saveData {   
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:score forKey:@"newHS"];
+    //NSLog(@"saved high score");
+    
+    [defaults synchronize];
+}
+- (void)restoreData {
+    // Get the stored data before the view loads
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults integerForKey:@"HS1"]) {
+        highscore = [defaults integerForKey:@"HS1"];
+        [highscoreLabel setString:[NSString stringWithFormat:@"HighScore: %i",highscore]];
+    }
+    
+   /* 
+    if ([defaults boolForKey:@"IsMuted"]) {
+        muted = [defaults boolForKey:@"IsMuted"];
+        [[SimpleAudioEngine sharedEngine] setMute:muted];
+    }
+    */
+}
+
+- (void)turnOnMusic {
+    if ([[SimpleAudioEngine sharedEngine] mute]) {
+        // This will unmute the sound
+        muted = FALSE;
+    }
+    else {
+        //This will mute the sound
+        muted = TRUE;
+    }
+    [[SimpleAudioEngine sharedEngine] setMute:muted];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:muted forKey:@"IsMuted"];
+    [defaults synchronize];
 }
 
 -(void) onEnterTransitionDidFinish{
@@ -136,9 +216,14 @@
 		firstOne = data;
 		return;
 	}
-	BOOL result = [box check];
-	if (result) {
-		[box setLock:NO];	
+	//BOOL result = [box check];
+	int result = [box scored];
+	if (result > 0) {
+     //   if (result > 0) {
+		[box setLock:NO];
+        NSLog(@"Playerlayer count of tiles to be removed for scoring %d", result);
+        score += 5*result;
+        [self updateScore];
 	}else {
 		[self changeWithTileA:(Tile *)data TileB:firstOne sel:@selector(backCheck:data:)]; 
 		[self runAction:[CCSequence actions:[CCDelayTime actionWithDuration:kMoveTileTime + 0.03f],
@@ -148,7 +233,18 @@
     
 	firstOne = nil;
 }
+- (void)updateScore {
+   // score += 55;
+    [self saveData];  
 
+    [scoreLabel setString:[NSString stringWithFormat:@"       Score: %i",score]];
+ /*   
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:score forKey:@"score"];
+    [defaults synchronize];
+    
+   */ 
+}
 
 -(void)afterTurn: (id) node{
 	if (selectedTile && node == selectedTile.sprite) {

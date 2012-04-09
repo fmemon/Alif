@@ -81,6 +81,39 @@
 		}
 	}
 }
+-(int) scored {
+    [self checkWith:OrientationHori];	
+	[self checkWith:OrientationVert];
+	
+	NSArray *objects = [[readyToRemoveTiles objectEnumerator] allObjects];
+	if ([objects count] == 0) {
+		return 0;
+	}
+	
+	int count = [objects count];
+	for (int i=0; i<count; i++) {
+        
+		Tile *tile = [objects objectAtIndex:i];
+		tile.value = 0;
+		if (tile.sprite) {
+			CCAction *action = [CCSequence actions:[CCScaleTo actionWithDuration:0.3f scale:0.0f],
+								[CCCallFuncN actionWithTarget: self selector:@selector(removeSprite:)],
+								nil];
+			[tile.sprite runAction: action];
+		}
+	}
+    
+    int counter = [readyToRemoveTiles count];
+    //NSLog(@"count of tiles to be removed for scoring %d", [readyToRemoveTiles count]);
+	[readyToRemoveTiles removeAllObjects];
+	int maxCount = [self repair];
+	
+	[layer runAction: [CCSequence actions: [CCDelayTime actionWithDuration: kMoveTileTime * maxCount + 0.03f],
+					   [CCCallFunc actionWithTarget:self selector:@selector(afterAllMoveDone)],
+					   nil]];
+	return counter;
+}
+
 
 -(BOOL) check{
 	[self checkWith:OrientationHori];	
@@ -104,7 +137,7 @@
 		}
 	}
     
-    NSLog(@"count of tiles to be removed for scoring %d", [readyToRemoveTiles count]);
+  //  NSLog(@"count of tiles to be removed for scoring %d", [readyToRemoveTiles count]);
 	[readyToRemoveTiles removeAllObjects];
 	int maxCount = [self repair];
 	

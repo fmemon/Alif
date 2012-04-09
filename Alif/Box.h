@@ -26,6 +26,7 @@
 -(id) initWithSize: (CGSize) size factor: (int) factor;
 -(Tile *) objectAtX: (int) posX Y: (int) posY;
 -(BOOL) check;
+-(int) scored;
 -(void) unlock;
 -(void) removeSprite: (id) sender;
 -(void) afterAllMoveDone;
