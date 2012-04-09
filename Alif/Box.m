@@ -1,4 +1,6 @@
 #import "Box.h"
+#import "MusicHandler.h"
+
 @interface Box()
 -(int) repair;
 -(int) repairSingleColumn: (int) columnIndex;
@@ -148,6 +150,7 @@
 }
 
 -(void) removeSprite: (id) sender{
+    [MusicHandler playPing];
 	[layer removeChild: sender cleanup:YES];
 }
 

@@ -16,6 +16,6 @@
 +(void) playBounce;
 +(void) playReset;
 +(void) playExit;
-
++(void) playPing;
 
 @end

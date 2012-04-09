@@ -50,9 +50,7 @@
 	box.lock = YES;
 	
 	self.isTouchEnabled = YES;
-    
-    
-    
+        
     // Preload effect
    // [MusicHandler preload];
     
@@ -90,7 +88,6 @@
     [menu alignItemsHorizontallyWithPadding:90.0f];
 
     [self addChild:menu z:11];
-    
 	
 	return self;
 }

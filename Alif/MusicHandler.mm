@@ -14,6 +14,7 @@ static NSString *WATER_EFFECT = @"break.caf";
 static NSString *BOUNCE_EFFECT = @"burp.caf";
 static NSString *EXIT_EFFECT = @"giggle2.caf";
 static NSString *RESET_EFFECT = @"fart3.caf";
+static NSString *PING_EFFECT = @"kr_mix.mp3";
 
 @interface MusicHandler()
 +(void) playEffect:(NSString *)path;
@@ -29,6 +30,7 @@ static NSString *RESET_EFFECT = @"fart3.caf";
 		[engine preloadEffect:BOUNCE_EFFECT];
 		[engine preloadEffect:EXIT_EFFECT];
 		[engine preloadEffect:RESET_EFFECT];
+		[engine preloadEffect:PING_EFFECT];
 	}
 }
 
@@ -45,6 +47,9 @@ static NSString *RESET_EFFECT = @"fart3.caf";
 
 +(void) playReset{
 	[MusicHandler playEffect:RESET_EFFECT];	
+}
++(void) playPing{
+	[MusicHandler playEffect:PING_EFFECT];	
 }
 
 
