@@ -22,7 +22,7 @@
     
 	score = 0;
     highscore = 0;
-    level = 0;
+    level = 1;
     gamePaused = FALSE;
     muted = FALSE;
     
@@ -114,13 +114,17 @@
 }
 
 -(void)resumeGame{
+    NSLog(@"resume game");
+    [[CCDirector sharedDirector] resume];
+
     [self removeChild:pauseMenu cleanup:YES];
     [self removeChild:pauseLayer cleanup:YES];
     //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"backgroundmusic.mp3"];
-    [[CCDirector sharedDirector] resume];
 }
 
 - (void)reset {
+    [[CCDirector sharedDirector] resume];
+
     //get score that was saved from Box
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -140,6 +144,10 @@
 		[director runWithScene:newScene];		
 	}
     [self restoreData];
+    level=0;
+    [defaults setInteger:level forKey:@"level"];
+    
+    [defaults synchronize];
 }
 - (void)saveData {   
     if (score > highscore) {
@@ -158,6 +166,13 @@
         highscore = [defaults integerForKey:@"newHS"];
         [highscoreLabel setString:[NSString stringWithFormat:@"HighScore: %i",highscore]];
     }
+    
+    
+    if ([defaults integerForKey:@"level"]) {
+        level = [defaults integerForKey:@"level"];
+        [levelLabel setString:[NSString stringWithFormat:@"Level: %i",level]];
+    }
+    
     
     if ([defaults boolForKey:@"IsMuted"]) {
         muted = [defaults boolForKey:@"IsMuted"];

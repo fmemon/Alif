@@ -1,5 +1,6 @@
 #import "Box.h"
 #import "MusicHandler.h"
+#import "SceneManager.h"
 
 @interface Box()
 -(int) repair;
@@ -37,6 +38,7 @@
 	readyToRemoveTiles = [NSMutableSet setWithCapacity:5];
 	[readyToRemoveTiles retain];
     score = 0;
+    level = 1;
 	return self;
 }
 
@@ -134,27 +136,45 @@
 		[self unlock];
 	}
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:score forKey:@"score"];
-    [defaults synchronize];
+
     
     //check if we reached next level 500 score
     if (score>=300) {
+        level++;
         NSLog(@"Time to level up");
         [self callEmitter:nil newLevel:YES];
         CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
-        [bigLevelLabel setString:[NSString stringWithFormat:@" New Level: %i",2]];
+        [bigLevelLabel setString:[NSString stringWithFormat:@" New Level: %i",level]];
         [bigLevelLabel setVisible:YES];
         
         id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.4f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
         
         [bigLevelLabel runAction:[CCSequence actions: action, [CCCallFuncN actionWithTarget:self selector:@selector(dropIt)], nil]];
     }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:score forKey:@"score"];
+    [defaults setInteger:level forKey:@"level"];
+    
+    if (score > highscore) {
+        [defaults setInteger:score forKey:@"newHS"];
+    }
+    [defaults synchronize];
 }	 
 -(void)dropIt {
     CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
     [bigLevelLabel setVisible:NO];
-    [(CCLabelTTF*)[layer getChildByTag:77] setString:[NSString stringWithFormat:@"Level: %i",2]];
+    [(CCLabelTTF*)[layer getChildByTag:77] setString:[NSString stringWithFormat:@"Level: %i",level]];
+    CCDirector *director = [CCDirector sharedDirector];
+    CCLayer *player = [PlayLayer node];
+    
+	CCScene *newScene = [SceneManager wrap:player];
+	
+	if ([director runningScene]) {
+		[director replaceScene:newScene];
+	}else {
+		[director runWithScene:newScene];		
+	}
 
 }
 -(void) unlock{

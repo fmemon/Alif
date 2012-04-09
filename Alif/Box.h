@@ -20,6 +20,7 @@
 	CCLayer *layer;
 	Tile *OutBorderTile;
     
+    int level;
     int score;
     int highscore;
     CCParticleExplosion *myEmitter;
