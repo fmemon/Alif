@@ -22,6 +22,7 @@
     
 	score = 0;
     highscore = 0;
+    level = 0;
     gamePaused = FALSE;
     muted = FALSE;
     
@@ -31,9 +32,13 @@
     [pauseLabel setVisible:NO];
     [self addChild:pauseLabel z:0];
     
+    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %i",level] fontName:@"Marker Felt" fontSize:24];
+    highscoreLabel.color = ccYELLOW;
+    highscoreLabel.position = ccp(50.0f, 465.0f);
+    [self addChild:highscoreLabel z:10];
+    
     //show scores
     highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"HighScore: %i",highscore] fontName:@"Marker Felt" fontSize:24];
-    //highscoreLabel.color = ccc3(26, 46, 149);
     highscoreLabel.color = ccBLUE;
     highscoreLabel.position = ccp(180.0f, 465.0f);
     [self addChild:highscoreLabel z:10];

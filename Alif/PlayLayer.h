@@ -28,6 +28,7 @@
     
     CCLayerColor* pauseLayer;
     CCMenu* pauseMenu;
+    int level;
 }
 
 -(void) changeWithTileA: (Tile *) a TileB: (Tile *) b sel : (SEL) sel;
