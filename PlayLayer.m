@@ -110,6 +110,12 @@
 }
 
 - (void)reset {
+    //get score that was saved from Box
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if ([defaults integerForKey:@"score"]) {
+        score = [defaults integerForKey:@"score"];
+    }
     [self saveData];
 
     CCDirector *director = [CCDirector sharedDirector];
@@ -261,9 +267,8 @@
 	if (result > 0) {
      //   if (result > 0) {
 		[box setLock:NO];
-        NSLog(@"Playerlayer count of tiles to be removed for scoring %d", result);
-        score += 5*result;
-        [self updateScore];
+        //score += 5*result;
+        //[self updateScore];
 	}else {
 		[self changeWithTileA:(Tile *)data TileB:firstOne sel:@selector(backCheck:data:)]; 
 		[self runAction:[CCSequence actions:[CCDelayTime actionWithDuration:kMoveTileTime + 0.03f],

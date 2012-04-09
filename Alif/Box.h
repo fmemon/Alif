@@ -21,6 +21,7 @@
 	Tile *OutBorderTile;
     
     int score;
+    int highscore;
 }
 @property(nonatomic, retain) CCLayer *layer;
 @property(nonatomic, readonly) CGSize size;

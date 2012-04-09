@@ -36,6 +36,7 @@
 	
 	readyToRemoveTiles = [NSMutableSet setWithCapacity:5];
 	[readyToRemoveTiles retain];
+    score = 0;
 	return self;
 }
 
@@ -119,8 +120,8 @@
 -(void) removeSprite: (id) sender{
     [MusicHandler playPing];
 	[layer removeChild: sender cleanup:YES];
-        
-    [(CCLabelTTF*)[layer getChildByTag:99] setString:[NSString stringWithFormat:@"       Score: %i",5]];
+    score +=5;
+    [(CCLabelTTF*)[layer getChildByTag:99] setString:[NSString stringWithFormat:@"       Score: %i",score]];
 
 }
 
@@ -131,6 +132,9 @@
 		[self unlock];
 	}
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:score forKey:@"score"];
+    [defaults synchronize];
 }	 
 
 -(void) unlock{
