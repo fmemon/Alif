@@ -55,7 +55,7 @@
     scoreLabel.color = ccBLUE;
     [self addChild:scoreLabel z:10 tag:99];
     
-	CCSprite *bg = [CCSprite spriteWithFile: @"ingame_menu.png"];
+	CCSprite *bg = [CCSprite spriteWithFile: @"bg09.png"];
 	bg.position = ccp(160,240);
 	[self addChild: bg z:0];
 	

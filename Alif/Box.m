@@ -245,8 +245,10 @@
         
         //NSLog(@"Value for level %d value of value %d", level, value);
 		Tile *destTile = [self objectAtX:columnIndex Y:kBoxHeight-extension+i];
-		NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
+		//NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
+		NSString *name = [NSString stringWithFormat:@"blk_%d.png",value];
 		CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:name];
+        sprite.scale=0.75;
 		sprite.position = ccp(kStartX + columnIndex * kTileSize + kTileSize/2, kStartY + (kBoxHeight + i) * kTileSize + kTileSize/2);
 		CCSequence *action = [CCSequence actions:
 							  [CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
