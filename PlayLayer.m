@@ -22,7 +22,7 @@
     gamePaused = FALSE;
     muted = FALSE;
     
-    
+    [self restoreData];
     pauseLabel = [CCLabelTTF labelWithString:@"Game Paused" fontName:@"Marker Felt" fontSize:32];
     [pauseLabel setPosition:ccp(160,330)];
     [pauseLabel setVisible:NO];
@@ -132,6 +132,7 @@
 
 - (void)reset {
     NSLog(@"reset Game hit");
+    [self saveData];
 
     CCDirector *director = [CCDirector sharedDirector];
     CCLayer *layer = [PlayLayer node];
@@ -143,30 +144,33 @@
 	}else {
 		[director runWithScene:newScene];		
 	}
- 
+    [self restoreData];
 }
 - (void)saveData {   
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:score forKey:@"newHS"];
-    //NSLog(@"saved high score");
+    NSLog(@"SCORE SAVED AS high score");
     
     [defaults synchronize];
 }
 - (void)restoreData {
+    NSLog(@"RESTORING");
+
     // Get the stored data before the view loads
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([defaults integerForKey:@"HS1"]) {
-        highscore = [defaults integerForKey:@"HS1"];
+    if ([defaults integerForKey:@"newHS"]) {
+        highscore = [defaults integerForKey:@"newHS"];
         [highscoreLabel setString:[NSString stringWithFormat:@"HighScore: %i",highscore]];
+        NSLog(@"high score restored");
     }
     
-   /* 
+    
     if ([defaults boolForKey:@"IsMuted"]) {
         muted = [defaults boolForKey:@"IsMuted"];
         [[SimpleAudioEngine sharedEngine] setMute:muted];
     }
-    */
+    
 }
 
 - (void)turnOnMusic {
