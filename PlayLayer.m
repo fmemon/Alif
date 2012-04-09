@@ -95,23 +95,8 @@
 	return self;
 }
 -(void)paused {
-  /*  CGSize winSize = [CCDirector sharedDirector].winSize;
-    
+    //[[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
     [[CCDirector sharedDirector] pause];
-    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
-    
-    
-    CCLayerColor* pauseLayer = [CCLayerColor layerWithColor: ccc4(0, 0, 255, 150) width: 480 height: 320];
-    [self addChild: pauseLayer z:800];
-    pauseLayer.anchorPoint=ccp(0,0);
-    
-    CCMenuItemImage *resumeButton;*/
-    
-    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
-    //[self stopGameLoopTimer];
-    //[self stopCollisionTimer];
-    [[CCDirector sharedDirector] pause];
-    CGSize s = [[CCDirector sharedDirector] winSize];
     pauseLayer = [CCLayerColor layerWithColor: ccc4(0, 0, 255, 125) width: 360 height: 480];
     pauseLayer.position = ccp(0,0);
     [self addChild: pauseLayer z:8];
@@ -123,7 +108,6 @@
 }
 
 -(void)resumeGame{
-    NSLog(@"resumeGame hit");
     [self removeChild:pauseMenu cleanup:YES];
     [self removeChild:pauseLayer cleanup:YES];
     //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"backgroundmusic.mp3"];
@@ -131,7 +115,6 @@
 }
 
 - (void)reset {
-    NSLog(@"reset Game hit");
     [self saveData];
 
     CCDirector *director = [CCDirector sharedDirector];
@@ -150,13 +133,11 @@
     if (score > highscore) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:score forKey:@"newHS"];
-    NSLog(@"SCORE SAVED AS high score");
     
     [defaults synchronize];
     }
 }
 - (void)restoreData {
-    NSLog(@"RESTORING");
 
     // Get the stored data before the view loads
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -164,9 +145,7 @@
     if ([defaults integerForKey:@"newHS"]) {
         highscore = [defaults integerForKey:@"newHS"];
         [highscoreLabel setString:[NSString stringWithFormat:@"HighScore: %i",highscore]];
-        NSLog(@"high score restored");
     }
-    
     
     if ([defaults boolForKey:@"IsMuted"]) {
         muted = [defaults boolForKey:@"IsMuted"];
