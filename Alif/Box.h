@@ -22,15 +22,19 @@
     
     int score;
     int highscore;
+    CCParticleExplosion *myEmitter;
+
 }
 @property(nonatomic, retain) CCLayer *layer;
 @property(nonatomic, readonly) CGSize size;
 @property(nonatomic) BOOL lock;
 -(id) initWithSize: (CGSize) size factor: (int) factor;
 -(Tile *) objectAtX: (int) posX Y: (int) posY;
--(BOOL) check;
 -(int) scored;
 -(void) unlock;
 -(void) removeSprite: (id) sender;
 -(void) afterAllMoveDone;
+-(void)callEmitter: (id) sender;
+
+
 @end

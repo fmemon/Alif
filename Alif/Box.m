@@ -119,6 +119,8 @@
 
 -(void) removeSprite: (id) sender{
     [MusicHandler playPing];
+    [self callEmitter:sender];
+
 	[layer removeChild: sender cleanup:YES];
     score +=5;
     [(CCLabelTTF*)[layer getChildByTag:99] setString:[NSString stringWithFormat:@"       Score: %i",score]];
@@ -190,6 +192,22 @@
 		destTile.sprite = sprite;
 	}
 	return extension;
+}
+
+-(void)callEmitter: (id) sender{       
+    int numParticle = 30 +CCRANDOM_0_1()*100;
+    myEmitter = [[CCParticleExplosion alloc] initWithTotalParticles:numParticle];
+    myEmitter.texture = [[CCTextureCache sharedTextureCache] addImage:@"goldstars1sm.png"];
+    CCSprite* sprite = (CCSprite*)sender;
+   // NSLog(@"Value of x %f  and y %f", sprite.position.x, sprite.position.y);
+    myEmitter.position = CGPointMake(sprite.position.x, sprite.position.y);    
+    myEmitter.life =0.2f + CCRANDOM_0_1()*0.1;
+    myEmitter.duration = 0.1f + CCRANDOM_0_1()*0.05;
+    myEmitter.scale = 0.5f;
+    myEmitter.speed = 50.0f + CCRANDOM_0_1()*50.0f;
+    myEmitter.blendAdditive = YES;
+    [layer addChild:myEmitter z:11];
+    myEmitter.autoRemoveOnFinish = YES;
 }
 
 @end
