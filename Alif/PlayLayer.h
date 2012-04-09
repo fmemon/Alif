@@ -34,5 +34,4 @@
 - (void)updateScore;
 - (void)saveData;
 - (void)reset;
-
 @end

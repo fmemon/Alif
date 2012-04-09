@@ -7,12 +7,13 @@
 //
 
 #import "PlayLayer.h"
-
+#import "SceneManager.h"
 @interface PlayLayer()
 -(void)afterTurn: (id) node;
 @end
 
 @implementation PlayLayer
+
 
 -(id) init{
 	self = [super init];
@@ -83,6 +84,16 @@
 }
 
 - (void)reset {
+    CCDirector *director = [CCDirector sharedDirector];
+    CCLayer *layer = [PlayLayer node];
+
+	CCScene *newScene = [SceneManager wrap:layer];
+	
+	if ([director runningScene]) {
+		[director replaceScene:newScene];
+	}else {
+		[director runWithScene:newScene];		
+	}
  
 }
 - (void)saveData {   
