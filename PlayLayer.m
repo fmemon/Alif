@@ -147,11 +147,13 @@
     [self restoreData];
 }
 - (void)saveData {   
+    if (score > highscore) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:score forKey:@"newHS"];
     NSLog(@"SCORE SAVED AS high score");
     
     [defaults synchronize];
+    }
 }
 - (void)restoreData {
     NSLog(@"RESTORING");
