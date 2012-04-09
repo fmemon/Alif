@@ -52,6 +52,10 @@
     level7 = FALSE;
     level8 = FALSE;
     level9 = FALSE;
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Alif.plist"];
+    CCSpriteBatchNode*  spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"Alif.png"];
+    [layer addChild:spriteSheet];
 	return self;
 }
 
@@ -152,26 +156,31 @@
 
     
     //check if we reached next level 500 score
-    if (score>=300) {
+    if (score>=300*level) {
         level++;
+        if (level>9) level = 1;
         [self callEmitter:nil newLevel:YES];
         CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
         [bigLevelLabel setString:[NSString stringWithFormat:@" New Level: %i",level]];
         [bigLevelLabel setVisible:YES];
+        
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setInteger:score forKey:@"score"];
+        [defaults setInteger:level forKey:@"level"];
+        
+        if (score > highscore) {
+            [defaults setInteger:score forKey:@"newHS"];
+        }
+        NSLog(@"the score is %d", score);
+        [defaults synchronize];
         
         id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.4f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
         
         [bigLevelLabel runAction:[CCSequence actions: action, [CCCallFuncN actionWithTarget:self selector:@selector(dropIt)], nil]];
     }
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:score forKey:@"score"];
-    [defaults setInteger:level forKey:@"level"];
-    
-    if (score > highscore) {
-        [defaults setInteger:score forKey:@"newHS"];
-    }
-    [defaults synchronize];
+
 }	 
 -(void)dropIt {
     CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
@@ -234,10 +243,10 @@
 		//int value = (arc4random()%kKindCount+1);
 		int value = (arc4random()%kKindCount+1) + kKindCount*(level-1);
         
-        NSLog(@"Value for level %d value of value %d", level, value);
+        //NSLog(@"Value for level %d value of value %d", level, value);
 		Tile *destTile = [self objectAtX:columnIndex Y:kBoxHeight-extension+i];
 		NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
-		CCSprite *sprite = [CCSprite spriteWithFile:name];
+		CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:name];
 		sprite.position = ccp(kStartX + columnIndex * kTileSize + kTileSize/2, kStartY + (kBoxHeight + i) * kTileSize + kTileSize/2);
 		CCSequence *action = [CCSequence actions:
 							  [CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
