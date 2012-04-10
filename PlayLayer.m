@@ -38,24 +38,24 @@
     [self addChild:bigLevelLabel z:10 tag: 88];
     [bigLevelLabel setVisible:NO];
     
-    levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Level: %i",level] fontName:@"Marker Felt" fontSize:24];
+    levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",level] fontName:@"Marker Felt" fontSize:24];
     levelLabel.color = ccYELLOW;
     levelLabel.position = ccp(50.0f, 465.0f);
     [self addChild:levelLabel z:10 tag:77];
     
     //show scores
-    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"HighScore: %i",highscore] fontName:@"Marker Felt" fontSize:24];
+    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",highscore] fontName:@"Marker Felt" fontSize:24];
     highscoreLabel.color = ccBLUE;
     highscoreLabel.position = ccp(180.0f, 465.0f);
     [self addChild:highscoreLabel z:10];
     
-    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"       Score: %i",score] fontName:@"Marker Felt" fontSize:24];
+    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"   %i",score] fontName:@"Marker Felt" fontSize:24];
     scoreLabel.position = ccp(180.0f, 445.0f);
     //scoreLabel.color = ccc3(26, 46, 149);
     scoreLabel.color = ccBLUE;
     [self addChild:scoreLabel z:10 tag:99];
     
-	CCSprite *bg = [CCSprite spriteWithFile: @"bg09.png"];
+	CCSprite *bg = [CCSprite spriteWithFile: @"bg.png"];
 	bg.position = ccp(160,240);
 	[self addChild: bg z:0];
 	
@@ -66,11 +66,11 @@
 	self.isTouchEnabled = YES;
         
     //Pause Toggle can not sure frame cache for sprites!!!!!
-    CCMenuItemSprite *playItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"newPauseON.png"]
-                                                         selectedSprite:[CCSprite spriteWithFile:@"newPauseONSelect.png"]];
+    CCMenuItemSprite *playItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"umute.png"]
+                                                         selectedSprite:[CCSprite spriteWithFile:@"umute.png"]];
     
-    CCMenuItemSprite *pauseItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"newPauseOFF.png"]
-                                                          selectedSprite:[CCSprite spriteWithFile:@"newPauseOFFSelect.png"]];
+    CCMenuItemSprite *pauseItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"mute.png"]
+                                                          selectedSprite:[CCSprite spriteWithFile:@"mute.png"]];
     CGSize screenSize = [CCDirector sharedDirector].winSize;
     if (!muted)  {
         pause = [CCMenuItemToggle itemWithTarget:self selector:@selector(turnOnMusic)items:playItem, pauseItem, nil];
@@ -80,21 +80,16 @@
         pause = [CCMenuItemToggle itemWithTarget:self selector:@selector(turnOnMusic)items:pauseItem, playItem, nil];
         pause.position = ccp(screenSize.width*0.03, screenSize.height*0.95f);
     }
-    CCMenuItemSprite *pausedPlayItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]
-                                                         selectedSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]
-                                                               disabledSprite:[CCSprite spriteWithFile:@"goldstars1sm.png"]
+    CCMenuItemSprite *pausedPlayItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"pause.png"]
+                                                         selectedSprite:[CCSprite spriteWithFile:@"pause.png"]
+                                                               disabledSprite:[CCSprite spriteWithFile:@"pause.png"]
                                                                        target:self
                                                                      selector:@selector(paused)];
-    CCMenuItemSprite* restartItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:@"reset.png"]
-                                                            selectedSprite:[CCSprite spriteWithFile:@"resetS.png"]
-                                                            disabledSprite:[CCSprite spriteWithFile:@"resetS.png"]
-                                                                    target:self
-                                                                  selector:@selector(reset)];	
     
     //Create Menu with the items created before
-    CCMenu *menu = [CCMenu menuWithItems:pause,pausedPlayItem,restartItem, nil];
-    menu.position = CGPointMake(150.0f, 15.0f);
-    [menu alignItemsHorizontallyWithPadding:90.0f];
+    CCMenu *menu = [CCMenu menuWithItems:pause,pausedPlayItem, nil];
+    menu.position = CGPointMake(170.0f, 390.0f);
+    [menu alignItemsHorizontallyWithPadding:170.0f];
 
     [self addChild:menu z:11];
 	
@@ -106,15 +101,15 @@
     pauseLayer = [CCLayerColor layerWithColor: ccc4(0, 0, 255, 125) width: 360 height: 480];
     pauseLayer.position = ccp(0,0);
     [self addChild: pauseLayer z:8];
-    CCMenuItem *resume = [CCMenuItemImage itemFromNormalImage:@"heart.png" selectedImage:@"heart.png" target:self selector:@selector(resumeGame)];
-    CCMenuItem *mainMenu = [CCMenuItemImage itemFromNormalImage:@"club.png" selectedImage:@"club.png" target:self selector:@selector(reset)];
-    pauseMenu = [CCMenu menuWithItems:resume, mainMenu, nil];
+    CCMenuItem *resume = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(resumeGame)];
+    CCMenuItem *reset = [CCMenuItemImage itemFromNormalImage:@"restart.png" selectedImage:@"restart.png" target:self selector:@selector(reset)];
+    pauseMenu = [CCMenu menuWithItems:resume, reset, nil];
     [pauseMenu alignItemsHorizontally];
     [self addChild:pauseMenu z:10];
 }
 
 -(void)resumeGame{
-    NSLog(@"resume game");
+    //NSLog(@"resume game");
     [[CCDirector sharedDirector] resume];
 
     [self removeChild:pauseMenu cleanup:YES];
