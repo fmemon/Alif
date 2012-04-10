@@ -52,7 +52,7 @@
     highscoreLabel.position = ccp(260.0f, 458.0f);
     [self addChild:highscoreLabel z:10];
     
-    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"  %i",score] fontName:@"Marker Felt" fontSize:34];
+    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"",score] fontName:@"Marker Felt" fontSize:34];
     scoreLabel.position = ccp(150.0f, 430.0f);
     scoreLabel.color = ccc3(255, 227, 66);
    // scoreLabel.color = ccYELLOW;
@@ -123,12 +123,25 @@
 - (void)reset {
     [[CCDirector sharedDirector] resume];
 
-    //get score that was saved from Box
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
+    //since score not set here but in Box.m, restore the score
     if ([defaults integerForKey:@"score"]) {
-        score = [defaults integerForKey:@"score"];
+        highscore = [defaults integerForKey:@"score"];
+        [scoreLabel setString:[NSString stringWithFormat:@"%i",score]];
     }
+    
+    //get score that was saved from Box
+    //check if score qualifies as a highscore
+    
+    NSLog(@"in reset score is %d and highscore is %d", score, highscore);
+    
+    if (score > highscore) {
+        [defaults setInteger:score forKey:@"newHS"];
+    }
+
+    //then reset the score
+    score = 0;
     [self saveData];
 
     CCDirector *director = [CCDirector sharedDirector];
@@ -143,7 +156,9 @@
 	}
     [self restoreData];
     level=0;
+    //save out the reset score and level
     [defaults setInteger:level forKey:@"level"];
+    [defaults setInteger:level forKey:@"score"];
     
     [defaults synchronize];
 }
@@ -162,13 +177,17 @@
     
     if ([defaults integerForKey:@"newHS"]) {
         highscore = [defaults integerForKey:@"newHS"];
-        [highscoreLabel setString:[NSString stringWithFormat:@"HighScore: %i",highscore]];
+        [highscoreLabel setString:[NSString stringWithFormat:@"%i",highscore]];
     }
     
+    if ([defaults integerForKey:@"score"]) {
+        highscore = [defaults integerForKey:@"score"];
+        [scoreLabel setString:[NSString stringWithFormat:@"%i",score]];
+    }
     
     if ([defaults integerForKey:@"level"]) {
         level = [defaults integerForKey:@"level"];
-        [levelLabel setString:[NSString stringWithFormat:@"Level: %i",level]];
+        [levelLabel setString:[NSString stringWithFormat:@"%i",level]];
     }
     
     

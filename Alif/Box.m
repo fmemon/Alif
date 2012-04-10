@@ -43,6 +43,9 @@
     if ([defaults integerForKey:@"level"]) {
         level = [defaults integerForKey:@"level"];
     }
+    if ([defaults integerForKey:@"score"]) {
+        score = [defaults integerForKey:@"score"];
+    }
     level1 = TRUE;
     level2 = FALSE;
     level3 = FALSE;
@@ -152,11 +155,12 @@
 	}else {
 		[self unlock];
 	}
-    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:score forKey:@"score"];
 
     
     //check if we reached next level 500 score
-    if (score>=300*level) {
+    if (score>=kLevelScoring*level) {
         level++;
         if (level>9) level = 1;
         [self callEmitter:nil newLevel:YES];
@@ -164,15 +168,12 @@
         [bigLevelLabel setString:[NSString stringWithFormat:@" New Level: %i",level]];
         [bigLevelLabel setVisible:YES];
         
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setInteger:score forKey:@"score"];
         [defaults setInteger:level forKey:@"level"];
         
         if (score > highscore) {
             [defaults setInteger:score forKey:@"newHS"];
         }
-        //NSLog(@"the score is %d", score);
+        NSLog(@"the score is %d", score);
         [defaults synchronize];
         
         id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.4f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
