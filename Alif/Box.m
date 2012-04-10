@@ -176,7 +176,9 @@
         NSLog(@"the score is %d", score);
         [defaults synchronize];
         
-        id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.4f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
+        //id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.8f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
+        
+        id action = [CCSpawn actions: [CCScaleTo actionWithDuration:2.0f scale:0.5f], nil];
         
         [bigLevelLabel runAction:[CCSequence actions: action, [CCCallFuncN actionWithTarget:self selector:@selector(dropIt)], nil]];
     }

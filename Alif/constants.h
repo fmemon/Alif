@@ -9,6 +9,7 @@
 #define kKindCount 4
 #define kLevelScoring 500
 
+
 enum Orientation{
 	OrientationHori,
 	OrientationVert,

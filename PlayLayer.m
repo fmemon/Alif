@@ -32,11 +32,11 @@
     [pauseLabel setVisible:NO];
     [self addChild:pauseLabel z:0];
     
-    bigLevelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"New Level: %i",level] fontName:@"Marker Felt" fontSize:44];
-    bigLevelLabel.color = ccc3(255, 227, 66);
-    //bigLevelLabel.color = ccYELLOW;
+    bigLevelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"New Level: %i",level] fontName:@"Marker Felt" fontSize:48];
+    //bigLevelLabel.color = ccc3(255, 227, 66);
+    bigLevelLabel.color = ccBLUE;
     bigLevelLabel.position = ccp(160.0f, 240.0f);
-    [self addChild:bigLevelLabel z:10 tag: 88];
+    [self addChild:bigLevelLabel z:18 tag: 88];
     [bigLevelLabel setVisible:NO];
     
     levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",level] fontName:@"Marker Felt" fontSize:28];
