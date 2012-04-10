@@ -142,7 +142,7 @@
 
 	[layer removeChild: sender cleanup:YES];
     score +=5;
-    [(CCLabelTTF*)[layer getChildByTag:99] setString:[NSString stringWithFormat:@"       Score: %i",score]];
+    [(CCLabelTTF*)[layer getChildByTag:99] setString:[NSString stringWithFormat:@"    %i",score]];
 
 }
 
@@ -172,7 +172,7 @@
         if (score > highscore) {
             [defaults setInteger:score forKey:@"newHS"];
         }
-        NSLog(@"the score is %d", score);
+        //NSLog(@"the score is %d", score);
         [defaults synchronize];
         
         id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.4f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
@@ -185,7 +185,7 @@
 -(void)dropIt {
     CCLabelTTF* bigLevelLabel = (CCLabelTTF*)[layer getChildByTag:88];
     [bigLevelLabel setVisible:NO];
-    [(CCLabelTTF*)[layer getChildByTag:77] setString:[NSString stringWithFormat:@"Level: %i",level]];
+    [(CCLabelTTF*)[layer getChildByTag:77] setString:[NSString stringWithFormat:@"%i",level]];
     CCDirector *director = [CCDirector sharedDirector];
     CCLayer *player = [PlayLayer node];
     
@@ -248,7 +248,7 @@
 		//NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
 		NSString *name = [NSString stringWithFormat:@"blk_%d.png",value];
 		CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:name];
-        sprite.scale=0.75;
+        sprite.scale=0.85;
 		sprite.position = ccp(kStartX + columnIndex * kTileSize + kTileSize/2, kStartY + (kBoxHeight + i) * kTileSize + kTileSize/2);
 		CCSequence *action = [CCSequence actions:
 							  [CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
