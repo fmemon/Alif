@@ -33,26 +33,29 @@
     [self addChild:pauseLabel z:0];
     
     bigLevelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"New Level: %i",level] fontName:@"Marker Felt" fontSize:44];
-    bigLevelLabel.color = ccYELLOW;
+    bigLevelLabel.color = ccc3(255, 227, 66);
+    //bigLevelLabel.color = ccYELLOW;
     bigLevelLabel.position = ccp(160.0f, 240.0f);
     [self addChild:bigLevelLabel z:10 tag: 88];
     [bigLevelLabel setVisible:NO];
     
-    levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",level] fontName:@"Marker Felt" fontSize:24];
-    levelLabel.color = ccYELLOW;
-    levelLabel.position = ccp(50.0f, 465.0f);
+    levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",level] fontName:@"Marker Felt" fontSize:28];
+    levelLabel.color = ccc3(255, 227, 66);
+    //levelLabel.color = ccYELLOW;
+    levelLabel.position = ccp(130.0f, 460.0f);
     [self addChild:levelLabel z:10 tag:77];
     
     //show scores
-    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",highscore] fontName:@"Marker Felt" fontSize:24];
-    highscoreLabel.color = ccBLUE;
-    highscoreLabel.position = ccp(180.0f, 465.0f);
+    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",highscore] fontName:@"Marker Felt" fontSize:20];
+    highscoreLabel.color = ccc3(255, 227, 66);
+   // highscoreLabel.color = ccYELLOW;
+    highscoreLabel.position = ccp(260.0f, 460.0f);
     [self addChild:highscoreLabel z:10];
     
-    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"   %i",score] fontName:@"Marker Felt" fontSize:24];
-    scoreLabel.position = ccp(180.0f, 445.0f);
-    //scoreLabel.color = ccc3(26, 46, 149);
-    scoreLabel.color = ccBLUE;
+    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"  %i",score] fontName:@"Marker Felt" fontSize:32];
+    scoreLabel.position = ccp(150.0f, 430.0f);
+    scoreLabel.color = ccc3(255, 227, 66);
+   // scoreLabel.color = ccYELLOW;
     [self addChild:scoreLabel z:10 tag:99];
     
 	CCSprite *bg = [CCSprite spriteWithFile: @"bg.png"];
@@ -89,7 +92,7 @@
     //Create Menu with the items created before
     CCMenu *menu = [CCMenu menuWithItems:pause,pausedPlayItem, nil];
     menu.position = CGPointMake(170.0f, 390.0f);
-    [menu alignItemsHorizontallyWithPadding:170.0f];
+    [menu alignItemsHorizontallyWithPadding:155.0f];
 
     [self addChild:menu z:11];
 	

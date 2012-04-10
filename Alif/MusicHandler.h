@@ -12,10 +12,7 @@
 @interface MusicHandler : NSObject {
 }
 +(void) preload;
-+(void) playWater;
-+(void) playBounce;
-+(void) playReset;
-+(void) playExit;
+
 +(void) playPing;
 
 @end

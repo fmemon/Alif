@@ -142,7 +142,7 @@
 
 	[layer removeChild: sender cleanup:YES];
     score +=5;
-    [(CCLabelTTF*)[layer getChildByTag:99] setString:[NSString stringWithFormat:@"    %i",score]];
+    [(CCLabelTTF*)[layer getChildByTag:99] setString:[NSString stringWithFormat:@"  %i",score]];
 
 }
 

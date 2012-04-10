@@ -10,10 +10,7 @@
 
 //static NSString *WATER_EFFECT = @"splash2.caf";
 //static NSString *BOUNCE_EFFECT = @"boing.caf";
-static NSString *WATER_EFFECT = @"break.caf";
-static NSString *BOUNCE_EFFECT = @"burp.caf";
-static NSString *EXIT_EFFECT = @"giggle2.caf";
-static NSString *RESET_EFFECT = @"fart3.caf";
+
 static NSString *PING_EFFECT = @"kr_mix.mp3";
 
 @interface MusicHandler()
@@ -26,27 +23,9 @@ static NSString *PING_EFFECT = @"kr_mix.mp3";
 +(void) preload{
 	SimpleAudioEngine *engine = [SimpleAudioEngine sharedEngine];
 	if (engine) {
-		[engine preloadEffect:WATER_EFFECT];
-		[engine preloadEffect:BOUNCE_EFFECT];
-		[engine preloadEffect:EXIT_EFFECT];
-		[engine preloadEffect:RESET_EFFECT];
+
 		[engine preloadEffect:PING_EFFECT];
 	}
-}
-
-+(void) playWater{
-	[MusicHandler playEffect:WATER_EFFECT];	
-}
-+(void) playBounce{
-	[MusicHandler playEffect:BOUNCE_EFFECT];	
-}
-
-+(void) playExit{
-	[MusicHandler playEffect:EXIT_EFFECT];	
-}
-
-+(void) playReset{
-	[MusicHandler playEffect:RESET_EFFECT];	
 }
 +(void) playPing{
 	[MusicHandler playEffect:PING_EFFECT];	
