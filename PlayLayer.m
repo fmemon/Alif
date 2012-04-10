@@ -32,7 +32,7 @@
     [pauseLabel setVisible:NO];
     [self addChild:pauseLabel z:0];
     
-    bigLevelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"New Level: %i",level] fontName:@"Marker Felt" fontSize:48];
+    bigLevelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"New Level: %i",level] fontName:@"Marker Felt" fontSize:54];
     //bigLevelLabel.color = ccc3(255, 227, 66);
     bigLevelLabel.color = ccBLUE;
     bigLevelLabel.position = ccp(160.0f, 240.0f);
