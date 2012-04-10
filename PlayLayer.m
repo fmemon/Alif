@@ -46,13 +46,13 @@
     [self addChild:levelLabel z:10 tag:77];
     
     //show scores
-    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",highscore] fontName:@"Marker Felt" fontSize:20];
+    highscoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",highscore] fontName:@"Marker Felt" fontSize:28];
     highscoreLabel.color = ccc3(255, 227, 66);
    // highscoreLabel.color = ccYELLOW;
-    highscoreLabel.position = ccp(260.0f, 460.0f);
+    highscoreLabel.position = ccp(260.0f, 458.0f);
     [self addChild:highscoreLabel z:10];
     
-    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"  %i",score] fontName:@"Marker Felt" fontSize:32];
+    scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"  %i",score] fontName:@"Marker Felt" fontSize:34];
     scoreLabel.position = ccp(150.0f, 430.0f);
     scoreLabel.color = ccc3(255, 227, 66);
    // scoreLabel.color = ccYELLOW;
@@ -91,8 +91,8 @@
     
     //Create Menu with the items created before
     CCMenu *menu = [CCMenu menuWithItems:pause,pausedPlayItem, nil];
-    menu.position = CGPointMake(170.0f, 390.0f);
-    [menu alignItemsHorizontallyWithPadding:155.0f];
+    menu.position = CGPointMake(160.0f, 390.0f);
+    [menu alignItemsHorizontallyWithPadding:185.0f];
 
     [self addChild:menu z:11];
 	
