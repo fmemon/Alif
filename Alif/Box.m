@@ -173,7 +173,7 @@
         if (score > highscore) {
             [defaults setInteger:score forKey:@"newHS"];
         }
-        NSLog(@"the score is %d", score);
+        //NSLog(@"the score is %d", score);
         [defaults synchronize];
         
         //id action = [CCSpawn actions: [CCScaleTo actionWithDuration:0.8f scale:0.5f], [CCFadeOut actionWithDuration:.4], [CCMoveTo actionWithDuration:0.8f position:ccp(40.0f, 475.0f)], nil];
@@ -296,4 +296,26 @@
     }
 }
 
+
+- (void)dealloc {
+    [super dealloc];
+    [myEmitter release];
+    [OutBorderTile release];
+    [Tile alloc];
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFramesFromFile:@"Alif.plist"];
+    
+    //Use these
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
+    
+    
+    //Use these
+    [[CCTextureCache sharedTextureCache] removeUnusedTextures];
+    [[CCTextureCache sharedTextureCache] removeAllTextures];
+    [[CCDirector sharedDirector] purgeCachedData];
+    
+    //Try out and use it. Not compulsory
+    [layer removeAllChildrenWithCleanup: YES];
+}
 @end

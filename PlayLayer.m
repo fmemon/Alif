@@ -127,14 +127,14 @@
 
     //since score not set here but in Box.m, restore the score
     if ([defaults integerForKey:@"score"]) {
-        highscore = [defaults integerForKey:@"score"];
+        score = [defaults integerForKey:@"score"];
         [scoreLabel setString:[NSString stringWithFormat:@"%i",score]];
     }
     
     //get score that was saved from Box
     //check if score qualifies as a highscore
     
-    NSLog(@"in reset score is %d and highscore is %d", score, highscore);
+    //NSLog(@"in reset score is %d and highscore is %d", score, highscore);
     
     if (score > highscore) {
         [defaults setInteger:score forKey:@"newHS"];
@@ -325,7 +325,7 @@
    // score += 55;
     [self saveData];  
 
-    [scoreLabel setString:[NSString stringWithFormat:@"       Score: %i",score]];
+    [scoreLabel setString:[NSString stringWithFormat:@" %i",score]];
  /*   
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:score forKey:@"score"];
@@ -347,5 +347,27 @@
 		
 		[sprite runAction:someAction];
 	}
+}
+
+- (void)dealloc {
+    [super dealloc];
+    [box release];
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFramesFromFile:@"Alif.plist"];
+    
+    //Use these
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
+    
+    
+    //Use these
+    [[CCTextureCache sharedTextureCache] removeUnusedTextures];
+    [[CCTextureCache sharedTextureCache] removeAllTextures];
+    [[CCDirector sharedDirector] purgeCachedData];
+    
+    //Try out and use it. Not compulsory
+    [self removeAllChildrenWithCleanup: YES];
+
+
 }
 @end

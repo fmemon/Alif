@@ -28,12 +28,6 @@
 }
 
 -(BOOL) nearTile: (Tile *)othertile{
-    NSLog(@"in near tile first: %d",(x == othertile.x && abs(y - othertile.y)==1));
-    NSLog(@"in near tile second: %d",(y == othertile.y && abs(x - othertile.x)==1));
-    NSLog(@"in near tile second1: %d",(y == othertile.y));
-    NSLog(@"in near tile second2: %d",abs(x - othertile.x)==1);
-    NSLog(@"in near tile y %d othertiley %d  x %d othertilex %d",y, othertile.y, x, othertile.x);
-   
 	return 
 	(x == othertile.x && abs(y - othertile.y)==1)
 	||
@@ -52,5 +46,10 @@
 
 -(CGPoint) pixPosition{
 	return ccp(kStartX + x * kTileSize +kTileSize/2.0f,kStartY + y * kTileSize +kTileSize/2.0f);
+}
+
+
+- (void)dealloc {
+    [super dealloc];
 }
 @end
